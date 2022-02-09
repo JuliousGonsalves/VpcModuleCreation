@@ -13,6 +13,7 @@ Ie, 3 Public subnet, 3 Private subnet , 1 NAT Gateways, 1 Internet Gateway, and 
 ### prerequisite for this project
 
 -Iam role with with attached policies for the creation of VPC. (By using role we can avoid adding access keys and secretkey in terraform files)
+
 -Basic knowledge in AWS services such as VPC and IP subnetting
 
 
@@ -20,8 +21,10 @@ Ie, 3 Public subnet, 3 Private subnet , 1 NAT Gateways, 1 Internet Gateway, and 
 
 Terraform - IAC Tool
 
+#-----------------------------------
 #### Variable declartion -  variables.tf
-
+#-----------------------------------
+```sh
 variable "vpc_cidr" {
 
   default = "172.16.0.0/16"
@@ -40,18 +43,20 @@ variable "env" {
   default = "test"
 
 }
-
+```
+#----------------------------------------------
 ### Datasource Declaration (AZ) - datasource.tf
-
+#-----------------------------------------------
+```sh
 data "aws_availability_zones" "az" {
   state = "available"
 }
+```
 
-
-#### main.tf 
+#### Creating VPC file- main.tf  
 
 # -------------------------------------------------------------------
-# Vpc Creation
+### Vpc Creation  
 # -------------------------------------------------------------------
 ```sh
 resource "aws_vpc" "vpc" {
@@ -70,7 +75,7 @@ resource "aws_vpc" "vpc" {
 ```
 
 # -------------------------------------------------------------------
-# InterNet GateWay Creation
+### InterNet GateWay Creation
 # -------------------------------------------------------------------
 ```sh
 resource "aws_internet_gateway" "igw" {
@@ -85,7 +90,7 @@ resource "aws_internet_gateway" "igw" {
 
 
 # -------------------------------------------------------------------
-# Public Subnet 1
+### Public Subnet 1
 # -------------------------------------------------------------------
 ```sh
 
@@ -103,7 +108,7 @@ resource "aws_subnet" "public1" {
 }
 
 # -------------------------------------------------------------------
-# Public Subnet 2
+### Public Subnet 2
 # -------------------------------------------------------------------
 
 resource "aws_subnet" "public2" {
@@ -120,7 +125,7 @@ resource "aws_subnet" "public2" {
 }
 
 # -------------------------------------------------------------------
-# Public Subnet 3
+### Public Subnet 3
 # -------------------------------------------------------------------
 resource "aws_subnet" "public3" {
 
@@ -136,7 +141,7 @@ resource "aws_subnet" "public3" {
 }
 
 # -------------------------------------------------------------------
-# Private Subnet 1
+### Private Subnet 1
 # -------------------------------------------------------------------
 resource "aws_subnet" "private1" {
 
@@ -152,7 +157,7 @@ resource "aws_subnet" "private1" {
 }
 
 # -------------------------------------------------------------------
-# Private Subnet 2
+### Private Subnet 2
 # -------------------------------------------------------------------
 resource "aws_subnet" "private2" {
 
@@ -168,7 +173,7 @@ resource "aws_subnet" "private2" {
 }
 
 # -------------------------------------------------------------------
-# Private Subnet 3
+### Private Subnet 3
 # -------------------------------------------------------------------
 resource "aws_subnet" "private3" {
 
@@ -185,7 +190,7 @@ resource "aws_subnet" "private3" {
 ```
 
 # -------------------------------------------------------------------
-# ElasticIp for NatGateway
+### ElasticIp for NatGateway
 # -------------------------------------------------------------------
 ```sh
 
@@ -199,7 +204,7 @@ resource "aws_eip" "nat" {
 }
 ```
 # -------------------------------------------------------------------
-#  NatGateway  Creation
+###  NatGateway  Creation
 # -------------------------------------------------------------------
 ```sh
 resource "aws_nat_gateway" "nat" {
@@ -216,7 +221,7 @@ resource "aws_nat_gateway" "nat" {
 ```
 
 # -------------------------------------------------------------------
-#  Public RouteTable
+###  Public RouteTable
 # -------------------------------------------------------------------
 ```sh
 resource "aws_route_table" "public" {
@@ -236,7 +241,7 @@ resource "aws_route_table" "public" {
 }
 ```
 # -------------------------------------------------------------------
-#  Private RouteTable
+###  Private RouteTable
 # -------------------------------------------------------------------
 ```sh
 
@@ -257,7 +262,7 @@ resource "aws_route_table" "private" {
 }
 ```
 # -------------------------------------------------------------------
-#  Public RouteTable association
+###  Public RouteTable association
 # -------------------------------------------------------------------
 ```sh
 
@@ -278,7 +283,7 @@ resource "aws_route_table_association" "public3" {
 ```
 
 # -------------------------------------------------------------------
-#  Private RouteTable association
+###  Private RouteTable association
 # -------------------------------------------------------------------
 ```sh
 
@@ -298,7 +303,7 @@ resource "aws_route_table_association" "private3" {
 }
 ```
 #--------------------------------------
-#output.tf - to get terraform results
+### output.tf - to get terraform results
 #--------------------------------------
 ```sh
 output "vpc_id" {
