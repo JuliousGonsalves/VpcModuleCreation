@@ -4,8 +4,6 @@
 
 ## Description.
 
-It is a open source tool created by Hashicorp that lets you easily manage, provision, and configure the infrastructure in technologies like AWS , Azure, GCP etc.
-
 Here we are going to create a AWS VPC module which consist of Public/Private Subnet and Network Gateway's for the VPC.
 
 Ie, 3 Public subnet, 3 Private subnet , 1 NAT Gateways, 1 Internet Gateway, and 2 Route Tables.
